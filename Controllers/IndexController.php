@@ -10,10 +10,15 @@
     class IndexController extends BaseController
     {
 
-        public
-        function index()
+        public function index()
         {
-            echo "index action23323";
+            $this->setVar("test", "test32");
+            return $this->view("1");
+        }
+
+        public function post()
+        {
+            echo "post";
         }
 
     }

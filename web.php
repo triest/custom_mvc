@@ -8,3 +8,5 @@
 
 
     Router::get('/', "IndexController@index");
+
+    Router::post('/', "IndexController@post");

@@ -6,5 +6,7 @@
      * Time: 11:45
      */
     require "Router.php";
+    include('config.php');
+
 
     $router = new Router();

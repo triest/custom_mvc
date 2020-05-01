@@ -50,12 +50,23 @@
                         $controller = new $item["controller"]();
                         $action = $item["action"];
                         $controller->$action();
+                        return;
                     }
                 }
 
 
             } elseif ($method == "POST") {
-                echo "post";
+                foreach ($this->post_array as $item) {
+                    if ($item["root"] == $patch) {
+                        //      echo "\n found";
+                        include("Controllers/" . $item["controller"] . ".php");
+
+                        $controller = new $item["controller"]();
+                        $action = $item["action"];
+                        $controller->$action();
+                        return;
+                    }
+                }
             }
 
 
@@ -70,7 +81,7 @@
             array_push($this->get_array, $temp);
         }
 
-        public static function post($root, $controller)
+        public function post($root, $controller)
         {
             $arr = explode("@", $controller);
 
