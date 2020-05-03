@@ -37,6 +37,29 @@
             $method = $_SERVER['REQUEST_METHOD'];
             include("web.php");
 
+            /*autolaad classes*/
+            /*
+             * читаем выйды из папки
+             * */
+
+            $class_array = scandir("Models");
+
+            spl_autoload_register(function ($item2) {
+                $str = "Models/Model.php";
+                include $str;
+            });
+
+            foreach ($class_array as $item) {
+                if ($item != "." && $item != ".." && $item != "Model.php") {
+                    /*
+                     *
+                     * */
+                    $item2 = substr($item, 0, strpos($item, "."));
+                    $str = "Models/" . $item2 . ".php";
+                    include "$str";
+                }
+            }
+
 
             if ($method == "GET") {
                 /*
@@ -44,7 +67,6 @@
                  * */
                 foreach ($this->get_array as $item) {
                     if ($item["root"] == $patch) {
-                        //      echo "\n found";
                         include("Controllers/" . $item["controller"] . ".php");
 
                         $controller = new $item["controller"]();
@@ -53,7 +75,7 @@
                         return;
                     }
                 }
-
+                echo "Method Not Found";
 
             } elseif ($method == "POST") {
                 foreach ($this->post_array as $item) {
@@ -67,6 +89,7 @@
                         return;
                     }
                 }
+                echo "Method Not Found";
             }
 
 

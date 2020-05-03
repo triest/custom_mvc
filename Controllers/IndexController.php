@@ -13,7 +13,16 @@
         public function index()
         {
             $this->setVar("test", "test32");
-            return $this->view("1");
+
+            $test = new Test();
+            $test->name = "TestName";
+            $test->age = 45;
+            if ($err = $test->save() != true) {
+                echo $err;
+            }
+
+
+            //return $this->view("1");
         }
 
         public function post()
