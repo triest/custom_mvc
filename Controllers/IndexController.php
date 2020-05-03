@@ -15,8 +15,9 @@
             $this->setVar("test", "test32");
 
             $test = new Test();
-            $test->name = "TestName";
-            $test->age = 45;
+            $test->name = "TestN";
+            $test->age = 10;
+            $test->id=15;
             if ($err = $test->save() != true) {
                 echo $err;
             }

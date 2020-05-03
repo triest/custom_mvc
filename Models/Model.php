@@ -9,6 +9,8 @@
     class Model
     {
 
+        public $id = null;
+
         /**
          * Get the table associated with the model.
          *
@@ -41,8 +43,18 @@
 
             unset($vars["table"]);
 
-            $qwery_string = 'insert into `' . $table . '` (`' . implode("`,`",
-                            array_keys($vars)) . '`) values ("' . implode("\",\"", array_values($vars)) . '")';
+            if ($this->id == null) {
+                $qwery_string = 'insert into `' . $table . '` (`' . implode("`,`",
+                                array_keys($vars)) . '`) values ("' . implode("\",\"", array_values($vars)) . '")';
+            } else {
+
+                $valueSets = array();
+                foreach ($vars as $key => $value) {
+                    $valueSets[] = $key . " = '" . $value . "'";
+                }
+                $qwery_string = "UPDATE $table SET " . join(",", $valueSets) . " WHERE id=$this->id";
+            }
+
 
             global $mysqli;
 
